@@ -1,3 +1,4 @@
+const { ipcMain } = require('electron')
 const { app, BrowserWindow } = require('electron/main')
 const path = require('node:path')
 
@@ -10,7 +11,9 @@ const createWindow = () => {
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile('dummy.html')
+
+  win.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
@@ -28,3 +31,15 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+app.whenReady().then(()=>{
+  console.log("ready!");
+  ipcMain.handle('dialog:sendBoardData',handleSubmission);
+})
+
+async function handleSubmission(event,data){
+  console.log(data)
+  console.log("bruh")
+
+  //app.quit();
+}
