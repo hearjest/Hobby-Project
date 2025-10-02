@@ -14,6 +14,8 @@ const createWindow = () => {
   win.loadFile('dummy.html')
 
   win.webContents.openDevTools()
+  win.setAlwaysOnTop(true, 'screen-saver');
+
 }
 
 app.whenReady().then(() => {
@@ -40,6 +42,15 @@ app.whenReady().then(()=>{
 async function handleSubmission(event,data){
   console.log(data)
   console.log("bruh")
-
+  // Take info, upload to database, create a box tht opens up to the respective motivation board
+  // try catch
+  return 1;
   //app.quit();
+}
+
+async function retrieveBoards(){
+  //connect to database, select all user boards (probably just an array)
+  //retrieve local files, and online ones (for each board)
+  //try catch pattern
+  return 0;
 }
