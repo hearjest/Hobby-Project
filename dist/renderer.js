@@ -4,20 +4,8 @@ information.innerText = `This app is using Chrome (v${window.versions.chrome()})
 
 form.addEventListener('submit',async(event)=>{
     event.preventDefault();
-    const data=new FormData(form);
-    //do tbhgins
-    // Method 1: Log each key-value pair
-    for (let [key, value] of data.entries()) {
-        console.log(key, value);
-    }
-    
-    // Method 2: Convert to a regular object for easier viewing
+    const data=new FormData(form);    
     const formObject = Object.fromEntries(data);
-    console.log(formObject)
-    
-    // Method 3: Get specific values
-    
-    //probably invoke something here
     const res =await window.versions.formSubmit(formObject);
     if(res==1){
         addBox(formObject)
@@ -25,19 +13,24 @@ form.addEventListener('submit',async(event)=>{
     console.log("daiwdw")
 })
 
-function addBox(data){
-    const boxHtml = createHtmlPage(data);
+async function addBox(data){
+    const boxHtml = createHtmlBox(data);
     const boxContainer = document.getElementById('box');
     if (boxContainer) {
         boxContainer.innerHTML += boxHtml;
     }
+    const boxButElement=document.getElementById(data.hobbyName)
+    boxButElement.addEventListener('click',async ()=>{//give info as parameter
+        await window.versions.makeWindow();
+        //retrieve data, populate window
+    })
     return 0;
 }
 
-function createHtmlPage(data) {
+function createHtmlBox(data) {
     const name = data && data.hobbyName ? data.hobbyName : 'Unnamed';
     return `
-        <div class="box" style="
+        <div class="box" id =${data.hobbyName} style="
             display: inline-block;
             padding: 15px 25px;
             border: 2px solid #333;
@@ -52,3 +45,4 @@ function createHtmlPage(data) {
         ">${name}</div>
     `;
 }
+

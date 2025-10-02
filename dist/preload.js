@@ -5,5 +5,6 @@ contextBridge.exposeInMainWorld('versions', {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
-  formSubmit:(data)=>ipcRenderer.invoke('dialog:sendBoardData',data)
+  formSubmit:(data)=>ipcRenderer.invoke('dialog:sendBoardData',data),
+  makeWindow:()=>ipcRenderer.invoke('dialog:makeWindow'),
 })
