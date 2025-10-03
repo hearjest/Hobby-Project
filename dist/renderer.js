@@ -1,8 +1,8 @@
 const information = document.getElementById('info')
 const form=document.getElementById('MakeMotivationBoard');
 information.innerText = `This app is using Chrome (v${window.versions.chrome()}), Node.js (v${window.versions.node()}), and Electron (v${window.versions.electron()})`
-
-form.addEventListener('submit',async(event)=>{
+const parse=new DOMParser();
+form.addEventListener('submit',async (event)=>{
     event.preventDefault();
     const data=new FormData(form);    
     const formObject = Object.fromEntries(data);
@@ -13,13 +13,14 @@ form.addEventListener('submit',async(event)=>{
     console.log("daiwdw")
 })
 
-async function addBox(data){
+function addBox(data){
     const boxHtml = createHtmlBox(data);
     const boxContainer = document.getElementById('box');
     if (boxContainer) {
-        boxContainer.innerHTML += boxHtml;
+        boxContainer.append(boxHtml);
     }
     const boxButElement=document.getElementById(data.hobbyName)
+    console.log("hi!!!",data.hobbyName)
     boxButElement.addEventListener('click',async ()=>{//give info as parameter
         await window.versions.makeWindow();
         //retrieve data, populate window
@@ -29,8 +30,9 @@ async function addBox(data){
 
 function createHtmlBox(data) {
     const name = data && data.hobbyName ? data.hobbyName : 'Unnamed';
-    return `
-        <div class="box" id =${data.hobbyName} style="
+    const divi=document.createElement('div');
+    divi.innerHTML= `
+        <div class="box" id ="${data.hobbyName}" style="
             display: inline-block;
             padding: 15px 25px;
             border: 2px solid #333;
@@ -44,5 +46,6 @@ function createHtmlBox(data) {
             margin: 5px;
         ">${name}</div>
     `;
+    return divi;
 }
 

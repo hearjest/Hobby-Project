@@ -71,16 +71,43 @@ app.whenReady().then(()=>{
 async function handleSubmission(event,data){
   console.log(data)
   console.log("bruh")
-  // Take info, upload to database, create a box tht opens up to the respective motivation board
-  // try catch
-  return 1;
-  //app.quit();
+  const links = JSON.stringify([
+    {
+      "title": "Motivation Video 1",
+      "url": "https://www.youtube.com/watch?v=example1",
+      "type": "video"
+    },
+    {
+      "title": "Inspirational Article",
+      "url": "https://example.com/article",
+      "type": "article"
+    },
+    {
+      "title": "Goal Tracker",
+      "url": "https://example.com/tracker",
+      "type": "tool"
+    }
+  ]);
+  try {
+    const result = await new Promise((resolve, reject) => {
+      connection.query('INSERT INTO boards (name, links) VALUES (?, ?)', [data.hobbyName || "test", links], (error, results) => {
+        if (error) reject(error);
+        else resolve(results);
+      });
+    });
+    console.log('Database insert successful:', result);
+    return 1;
+  } catch (error) {
+    console.error('Database insert error:', error);
+    return 0;
+  }
 }
 
 async function retrieveBoards(){
   //connect to database, select all user boards (probably just an array)
   //retrieve local files, and online ones (for each board)
   //try catch pattern
+  
   return 0;
 }
 
